@@ -1,32 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\Http\Controllers\post;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\PostController;
+use App\Models\Lamparas;
+use App\Models\Medidas;
 
 // Route::get('/blog/{post}', [PostController::class, 'show'])->name('posts.show');
 
-Route::get('/', function () {
+Route::get('/', function () {    
     return view('welcome');
 })->name('welcome');
 
+Route::get('/getmedidas', [PostController::class, 'GetMedidas'])->name('getmedidas');
+
+Route::get('/getlamparas', [PostController::class, 'GetLamparas'])->name('getlamparas');
 
 /* ruta para crear un nuevo registro */
-Route::post('/createdata', [post::class, 'create'])->name('create');
+Route::post('/CreateData', [PostController::class, 'CreateData'])->name('CreateData');
 
 Route::get('/lista_censos', function () {
     return view('read');
 })->name('read');
 
-// Route::get('/create', [post::class, 'create'])->name('create');
+
 
