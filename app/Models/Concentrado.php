@@ -13,7 +13,7 @@ class Concentrado extends Model
 
     protected $table = 'concentrado';
     
-    public $timestamps = false;
+    // public $timestamps = false;
 
     protected $fillable = [
         'Sm_Av',

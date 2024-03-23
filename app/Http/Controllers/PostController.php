@@ -22,14 +22,14 @@ class PostController extends Controller
         return $lamparas;
     }
 
-
     public function CreateData (Request $request) {
 
         try {
             Concentrado::create($request->all());                  
             return response()->json(['result' => '1', 'msg' => 'Datos guardados correctamente']);
-        } catch (\Throwable $th) {            
-            return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
+        } catch (\Throwable $th) {
+            dd($th);            
+            // return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
         }
         
     }
