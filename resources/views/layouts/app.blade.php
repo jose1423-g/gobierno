@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="descripcion" content="@yield('meta_description', 'default')">
     <title> @yield('title') </title>    
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
+    @vite('resources/css/app.css')    
+    @vite('resources/js/app.js')    
 </head>
 <body class="bg-gray-50">
 

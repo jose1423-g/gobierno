@@ -12,5 +12,11 @@
         "postcss": "^8.4.35",
         "tailwindcss": "^3.4.1",
         "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "datatables.net-dt": "^2.0.3",
+        "jquery": "^3.7.1",
+        "select2": "^4.1.0-rc.0",
+        "tom-select": "^2.3.1"
     }
 }
