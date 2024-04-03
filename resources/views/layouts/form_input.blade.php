@@ -1,3 +1,4 @@
+@csrf
 <div class="justify-around block md:flex">
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="Sm_Av" class="block mb-2 text-sm font-medium text-gray-900">Sm/Av.</label>
@@ -6,7 +7,7 @@
         <span class="hidden text-red-700 hidden_msg" id="msg_error_sm_av"></span>        
     </div>  
     <input type="hidden" id="Latitud" name="Latitud">
-    <input type="hidden" id="Longitud" name="Longitud">  
+    <input type="hidden" id="Longitud" name="Longitud">
     {{--  --}}                              
     <div class="mb-3 md:w-2/4">
         <label for="Id_medida_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estatus</label>
@@ -129,6 +130,7 @@
             @endif            
         </select>
     </div>
+    {{--  --}}
     <div class="mb-3 md:w-2/4">
         <label for="Id_altura_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Altura</label>
         <select id="Id_altura_fk" name="Id_altura_fk">                        

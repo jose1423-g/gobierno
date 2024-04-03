@@ -7,22 +7,31 @@ use App\Models\Medidas;
 
 // Route::get('/blog/{post}', [PostController::class, 'show'])->name('posts.show');
 
-// Route::get('/', function () {    
-//     return view('welcome');
-// })->name('welcome');
+Route::get('/', function () {    
+    return view('welcome');
+})->name('welcome');
 
-Route::get('/', [PostController::class, 'GetMedidasLamparas'])->name('welcome');
-
-Route::get('/getexcel', [PostController::class, 'getexcel'])->name('getexcel');
-
-Route::get('/table', function () {    
+Route::get('/concentrado', function () {    
     return view('read');
 })->name('read');
 
 Route::get('/gettable', [PostController::class, 'table']);
 
-/* ruta para crear un nuevo registro */
-Route::post('/CreateData', [PostController::class, 'CreateData'])->name('CreateData');
+Route::get('/ShowData', [PostController::class, 'ShowData']);
+
+/* RUTA PARA GENERAR LOS EXCEL */
+// Route::get('/getexcel', [PostController::class, 'getexcel'])->name('getexcel');
+
+/* RUTAS PARA CREAR Y ACTULIZAR */
+Route::post('/CreateData', [PostController::class, 'CreateData']);
+
+Route::post('/UpdateData', [PostController::class, 'UpdateData'])->name('UpdateData');
+
+/* EUTAS PARA GENERAR EL EXCEL */
+Route::get('/Excel-Concentrado', [PostController::class, 'ExcelConcentrado'])->name('Concentrado');
+
+
+
 
 // Route::get('/lista_censos', function () {
 //     return view('read');
