@@ -274,8 +274,14 @@ const options = {
     maximumAge: 0,
 };
   
+var latitud
+var longitud
+
 function success(pos) {
     const crd = pos.coords;        
+    latitud =  crd.latitude
+    longitud =  crd.longitude
+
     $("#Latitud").val(crd.latitude)
     $("#Longitud").val(crd.longitude)
     // latitud.value = crd.latitude;
@@ -288,6 +294,12 @@ function error(err) {
 
 navigator.geolocation.getCurrentPosition(success, error, options);     
 
+/* ejemplo por si el suario uno tiene internet */
+if (navigator.onLine) {
+    alert("se restablecio el nternet :)");
+} else {
+   alert(`en este momento no tiene internet :( pero puedes guardar datos de manera local latitud = ${latitud}   longitud = ${longitud}`);
+}
 
 /* GUARDAR DATOS */
 // form_data.addEventListener('keydown', keydowOff)
@@ -296,47 +308,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 //         e.preventDefault(); // Evitar la acción predeterminada del Enter
 //     }
 // }
-
-
 // console.log("Tu ubicación actual es:");
 // console.log(`Latitud : ${crd.latitude}`);
 // console.log(`Longitud: ${crd.longitude}`);
 // console.log(`Más o menos ${crd.accuracy} metros.`);
-
-/* ejemplo por si el suario uno tiene internet */
-// if (navigator.onLine) {
-//     console.log("tiene internet :)");
-    
-// } else {
-//     console.log("no tiene internet :(");
-
-//     let a_lampara = [
-//         {id_lampara: 1, tipo: 'AM', descripcion: 'Aditivo Metálico'},
-//         {id_lampara: 2, tipo: 'Ahorrador', descripcion: 'Ahorrador'},
-//         {id_lampara: 3, tipo: 'Colonial Hacienda', descripcion: 'Colonial Hacienda'},
-//         {id_lampara: 4, tipo: 'CM', descripcion: 'Colonial Mexicana'},
-//         {id_lampara: 5, tipo: 'Fluorescente', descripcion: 'Fluorescente'},
-//         {id_lampara: 6, tipo: 'HP', descripcion: 'Holophane'}
-//     ]
-
-//     let a_medida = [
-//         {id_medida: 1, tipo: 'BMT-BC', descripcion: 'Medidas media tension'},
-//         {id_medida: 2, tipo: 'BBT-BC', descripcion: 'Medidas baja tension'},
-//         {id_medida: 3, tipo: 'NBBT-BC', descripcion: 'No medidas baja tension'} ,
-//         {id_medida: 4, tipo: 'Directas', descripcion: 'Directas'},
-//         {id_medida: 5, tipo: 'DTA', descripcion: 'Directas'}
-//     ]
-
-//     var html_lampara = '';
-//     a_lampara.forEach(element => {
-//         html_lampara += `<option value="${element.id_lampara}">${element.tipo} ${element.descripcion}</option>`
-//     });
-//     option_lampara.innerHTML = html_lampara; 
-
-
-//     var html_medida = '';
-//     a_lampara.forEach(element => {
-//         html_medida += `<option value="${element.id_lampara}">${element.tipo} ${element.descripcion}</option>`
-//     });
-//     option_medida.innerHTML = html_medida; 
-// }
