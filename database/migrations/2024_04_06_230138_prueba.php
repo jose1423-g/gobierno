@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('NumMedidor');
             $table->string('Observaciones');
             $table->string('EsCerrado');
-            $table->timestamps();
+            // $table->timestamps();
         });
 
         Schema::create('dependencia', function (Blueprint $table) {

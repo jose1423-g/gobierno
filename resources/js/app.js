@@ -1,4 +1,4 @@
-import $, { parseJSON } from "jquery";
+import $ from "jquery";
 import 'flowbite';
 import DataTable from 'datatables.net-dt';
 import TomSelect from "tom-select";
@@ -9,6 +9,7 @@ import 'tom-select/dist/js/tom-select.complete'
 /* menu */
 let btn_navbar = document.getElementById('btn-navbar');
 let content_menu = document.getElementById('navbar-default');
+let a_data = [];
 
 $(document).ready(function () {
 
@@ -255,51 +256,55 @@ $(document).ready(function () {
             }
         });
     });
-})
 
-btn_navbar.addEventListener('click', DisplayMenu);
+    $("#btn_cerrar_censo").on('click', function () {
+        alert("si jalo")
+    })
 
-function DisplayMenu() {
-    if (content_menu.classList.contains('hidden')) {
-        content_menu.classList.remove('hidden')    
-    } else {
-        content_menu.classList.add('hidden')    
+    btn_navbar.addEventListener('click', DisplayMenu);
+
+    function DisplayMenu() {
+        if (content_menu.classList.contains('hidden')) {
+            content_menu.classList.remove('hidden')    
+        } else {
+            content_menu.classList.add('hidden')    
+        }
     }
-}
 
-/* obtiene la ubicacion actual del usuario */
-const options = {
-    enableHighAccuracy: false,
-    timeout: 5000,
-    maximumAge: 0,
-};
-  
-var latitud
-var longitud
+    /* obtiene la ubicacion actual del usuario */
+    const options = {
+        enableHighAccuracy: false,
+        // timeout: 5000,
+        maximumAge: 0,
+    };
+    
+    var latitud
+    var longitud
 
-function success(pos) {
-    const crd = pos.coords;        
-    latitud =  crd.latitude
-    longitud =  crd.longitude
+    function success(pos) {
+        const crd = pos.coords;        
+        latitud =  crd.latitude
+        longitud =  crd.longitude
 
-    $("#Latitud").val(crd.latitude)
-    $("#Longitud").val(crd.longitude)
-    // latitud.value = crd.latitude;
-    // longitud.value = crd.longitude;
-}
-  
-function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-}
+        $("#Latitud").val(crd.latitude)
+        $("#Longitud").val(crd.longitude)    
+    }
+    
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }    
 
-navigator.geolocation.getCurrentPosition(success, error, options);     
+    /* ejemplo por si el suario uno tiene internet */
+    if (navigator.onLine) {
+        // alert("se restablecio el nternet :)");
+    } else {
+        navigator.geolocation.getCurrentPosition(success, error, options);     
+    //    alert(`en este momento no tiene internet :( pero puedes guardar datos de manera local latitud = ${latitud}   longitud = ${longitud}`);
+    }
 
-/* ejemplo por si el suario uno tiene internet */
-if (navigator.onLine) {
-    alert("se restablecio el nternet :)");
-} else {
-   alert(`en este momento no tiene internet :( pero puedes guardar datos de manera local latitud = ${latitud}   longitud = ${longitud}`);
-}
+});
+
+
 
 /* GUARDAR DATOS */
 // form_data.addEventListener('keydown', keydowOff)
