@@ -21,9 +21,11 @@ class PostController extends Controller
         ]);
             
         try {                        
-            Concentrado::create($request->all());                                      
+            Concentrado::create($request->all());
             return response()->json(['result' => '1', 'msg' => 'Datos guardados correctamente']);
-        } catch (\Throwable $th) {                        
+        } catch (\Throwable $th) {         
+            $holis = Concentrado::create($request->all());
+            return $holis;
             return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
         }        
     }

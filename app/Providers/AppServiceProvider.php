@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         
-
+        
         try {
             $medidas =  Medidas::all();
             $lamparas =  Lamparas::all()->where('EsTecnologia', 1);

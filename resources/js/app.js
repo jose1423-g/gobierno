@@ -289,10 +289,13 @@ $(document).ready(function () {
         $("#Latitud").val(crd.latitude)
         $("#Longitud").val(crd.longitude)    
     }
+
     
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
     }    
+    
+    navigator.geolocation.getCurrentPosition(success, error, options);   
 
     /* ejemplo por si el suario uno tiene internet */
     if (navigator.onLine) {

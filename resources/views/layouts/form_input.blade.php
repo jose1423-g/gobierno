@@ -6,8 +6,11 @@
         {{-- ERROR --}}
         <span class="hidden text-red-700 hidden_msg" id="msg_error_sm_av"></span>        
     </div>  
-    <input type="hidden" id="Latitud" name="Latitud">
-    <input type="hidden" id="Longitud" name="Longitud">
+    <input type="text" id="Latitud" name="Latitud">
+    <input type="text" id="Longitud" name="Longitud">
+    <input type="hidden" id="Posicion" name="Posicion" value="0">
+    <input type="hidden" id="RPU" name="RPU" value="0">
+    <input type="hidden" id="Municipalizado" name="Municipalizado" value="0">    
     {{--  --}}                              
     <div class="mb-3 md:w-2/4">
         <label for="Id_medida_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estatus</label>
