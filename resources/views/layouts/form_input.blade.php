@@ -6,8 +6,8 @@
         {{-- ERROR --}}
         <span class="hidden text-red-700 hidden_msg" id="msg_error_sm_av"></span>        
     </div>  
-    <input type="text" id="Latitud" name="Latitud">
-    <input type="text" id="Longitud" name="Longitud">
+    <input type="text" id="Latitud" name="Latitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
+    <input type="text" id="Longitud" name="Longitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
     <input type="hidden" id="Posicion" name="Posicion" value="0">
     <input type="hidden" id="RPU" name="RPU" value="0">
     <input type="hidden" id="Municipalizado" name="Municipalizado" value="0">    
