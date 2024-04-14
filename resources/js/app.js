@@ -300,6 +300,7 @@ $(document).ready(function () {
     /* ejemplo por si el suario uno tiene internet */
     if (navigator.onLine) {
         // alert("se restablecio el nternet :)");
+        navigator.geolocation.getCurrentPosition(success, error, options);   
     } else {
         navigator.geolocation.getCurrentPosition(success, error, options);     
     //    alert(`en este momento no tiene internet :( pero puedes guardar datos de manera local latitud = ${latitud}   longitud = ${longitud}`);

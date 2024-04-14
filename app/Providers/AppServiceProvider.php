@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\URL;
 use App\Models\Medidas;
 use App\Models\Lamparas;
 use App\Models\altura;
@@ -30,7 +31,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+        if ($this->app->environment('production')) {
+            URL::forceSheme('https');
+        }
         
         try {
             $medidas =  Medidas::all();
