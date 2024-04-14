@@ -289,7 +289,6 @@ $(document).ready(function () {
         $("#Latitud").val(crd.latitude)
         $("#Longitud").val(crd.longitude)    
     }
-
     
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -302,6 +301,27 @@ $(document).ready(function () {
         // alert("se restablecio el nternet :)");
         navigator.geolocation.getCurrentPosition(success, error, options);   
     } else {
+        const options = {
+            enableHighAccuracy: false,
+            // timeout: 5000,
+            maximumAge: 0,
+        };
+        
+        var latitud
+        var longitud
+    
+        function success(pos) {
+            const crd = pos.coords;        
+            latitud =  crd.latitude
+            longitud =  crd.longitude
+    
+            $("#Latitud").val(crd.latitude)
+            $("#Longitud").val(crd.longitude)    
+        }
+        
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }    
         navigator.geolocation.getCurrentPosition(success, error, options);     
     //    alert(`en este momento no tiene internet :( pero puedes guardar datos de manera local latitud = ${latitud}   longitud = ${longitud}`);
     }

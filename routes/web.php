@@ -11,6 +11,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/offline', function () {    
+    return view('vendor.laravelpwa.offline');
+});
+
 Route::get('/concentrado', function () {    
     return view('read');
 })->name('read');

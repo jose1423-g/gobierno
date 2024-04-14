@@ -5,9 +5,17 @@
         <input type="text" id="Sm_Av" name="Sm_Av" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">        
         {{-- ERROR --}}
         <span class="hidden text-red-700 hidden_msg" id="msg_error_sm_av"></span>        
-    </div>  
-    <input type="text" id="Latitud" name="Latitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
-    <input type="text" id="Longitud" name="Longitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
+    </div> 
+    <div class="justify-around block md:flex">
+        <div class="mb-3 md:w-2/4">
+            <label for="Latitud" class="block mb-2 text-sm font-medium text-gray-900">Latitud</label>
+            <input type="text" id="Latitud" name="Latitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500" readonly>
+        </div>
+        <div class="mb-3 md:w-2/4">
+            <label for="longitud" class="block mb-2 text-sm font-medium text-gray-900">Longitud</label>
+            <input type="text" id="Longitud" name="Longitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500"  readonly>
+        </div>
+    </div> 
     <input type="hidden" id="Posicion" name="Posicion" value="0">
     <input type="hidden" id="RPU" name="RPU" value="0">
     <input type="hidden" id="Municipalizado" name="Municipalizado" value="0">    
