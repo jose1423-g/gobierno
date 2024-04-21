@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title', 'offline')
+
+@section('meta_description', 'modo offline')
+
 @section('content')
     <main class="container px-3 pb-10 mx-auto mt-5 md:px-0">
         <h1>You are currently not connected to any networks.</h1>
