@@ -4,7 +4,7 @@ return [
     'name' => 'Alumbrado Publico',
     'manifest' => [
         'name' => env('APP_NAME', 'Alumbrado Publico'),
-        'short_name' => 'PWA',
+        'short_name' => 'Luminaria',
         'start_url' => '/',
         'background_color' => '#ffffff',
         'theme_color' => '#000000',
