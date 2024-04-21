@@ -320,9 +320,12 @@ $(document).ready(function () {
     navigator.geolocation.getCurrentPosition(success, error, options);   
 
     /* ejemplo por si el suario uno tiene internet */
-    if (navigator.onLine) {
-        // alert("se restablecio el nternet :)"); 
-        navigator.geolocation.getCurrentPosition(success, error, options);   
+    if (navigator.onLine) {        
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        
+
+
 
     } else {
 
@@ -332,8 +335,8 @@ $(document).ready(function () {
             maximumAge: 0,
         };
         
-        var latitud
-        var longitud
+        var latitud = '';
+        var longitud = '';
     
         function success(pos) {
             const crd = pos.coords;        
@@ -347,10 +350,10 @@ $(document).ready(function () {
         function error(err) {
             console.warn(`ERROR(${err.code}): ${err.message}`);
         }    
-        
-        navigator.geolocation.getCurrentPosition(success, error, options);
-        alert(`en este momento no tiene internet :( pero puedes guardar datos de manera local latitud = ${latitud}   longitud = ${longitud}`);
+        navigator.geolocation.getCurrentPosition(success, error, options);        
+
         $("#form-data-offline").on('submit',  function () {
+
             let sm_av = $("#Sm_Av").val()
             let latitud = $("#Latitud").val()
             let longitud = $("#longitud").val()
@@ -392,7 +395,8 @@ $(document).ready(function () {
             'Id_dependencia_fk': dependencia,
             'Id_altura_fk': id_altura,
             'Observaciones': observaciones,                    
-            });               
+            });      
+
             alert(a_data);
         });
     }
