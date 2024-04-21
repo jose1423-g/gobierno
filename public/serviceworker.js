@@ -1,6 +1,6 @@
 var staticCacheName = "pwa-v" + new Date().getTime();
 var filesToCache = [
-    './offline',
+    './resources/views/vendor/laravelpwwa/offline',
     './build/assets/app-CLEQ3Vna.css',
     './build/assets/app-uzqnvh6b.css', 
     './build/assets/app-Dvtkjqb3.js',
