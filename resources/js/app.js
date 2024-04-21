@@ -392,7 +392,7 @@ $(document).ready(function () {
             'Id_dependencia_fk': dependencia,
             'Id_altura_fk': id_altura,
             'Observaciones': observaciones,                    
-            });   
+            });               
             alert(a_data);
         });
     }

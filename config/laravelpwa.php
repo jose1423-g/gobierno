@@ -4,7 +4,7 @@ return [
     'name' => 'Alumbrado Publico',
     'manifest' => [
         'name' => env('APP_NAME', 'Alumbrado Publico'),
-        'short_name' => 'Luminaria',
+        'short_name' => 'Luminarias',
         'start_url' => '/',
         'background_color' => '#ffffff',
         'theme_color' => '#000000',
@@ -59,19 +59,19 @@ return [
         ],
         'shortcuts' => [
             [
-                'name' => 'Shortcut Link 1',
-                'description' => 'Shortcut Link 1 Description',
-                'url' => '/shortcutlink1',
+                'name' => 'Concentrado',
+                'description' => 'Concentrado',
+                'url' => '/read',
                 'icons' => [
                     "src" => "/images/icons/logo_gobierno.jpg",
                     "purpose" => "any"
                 ]
             ],
-            [
-                'name' => 'Shortcut Link 2',
-                'description' => 'Shortcut Link 2 Description',
-                'url' => '/shortcutlink2'
-            ]
+            // [
+            //     'name' => 'Shortcut Link 2',
+            //     'description' => 'Shortcut Link 2 Description',
+            //     'url' => '/shortcutlink2'
+            // ]
         ],
         'custom' => []
     ]
