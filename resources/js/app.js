@@ -519,14 +519,13 @@ $(document).ready(function () {
         let a_data = localStorage.getItem('a_data');
         /* si el arreglo tiene algo */
         if (a_data) {
-            alert("si tiene algo")
+            alert("Desea enviar los datos que esta guardados")
             Create();
             return false;
         }
-        function Create (e) {
+        function Create () {
             $("#load_spinner").removeClass('hidden');
-            $("#load_spinner").addClass('flex');
-            e.preventDefault();
+            $("#load_spinner").addClass('flex');            
             var a_data = JSON.stringify(a_data);
             $.ajax({
                 type: 'POST',
