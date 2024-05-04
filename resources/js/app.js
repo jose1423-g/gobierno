@@ -356,8 +356,8 @@ $(document).ready(function () {
     function Create (e) {
         $("#load_spinner").removeClass('hidden');
         $("#load_spinner").addClass('flex');
-        e.preventDefault();
-        var formData = $(this).serialize();
+        e.preventDefault(); 
+        var formData = $(this).serialize();        
         $.ajax({
             type: 'POST',
             url: '/CreateData', 
@@ -469,6 +469,7 @@ $(document).ready(function () {
         navigator.geolocation.getCurrentPosition(success, error, options);
 
         $("#form-data-offline").on('submit',  function () {
+            let csrf_token = $('#form-data input[name="_token"]').val();
             let sm_av = $("#Sm_Av").val()
             let latitud = $("#Latitud").val()
             let longitud = $("#longitud").val()
@@ -491,6 +492,7 @@ $(document).ready(function () {
             let observaciones = $("#Observaciones").val() 
 
             a_data.push({
+                '_token': csrf_token,
                 'Sm_Av': sm_av,
                 'Latitud': latitud,
                 'longitud': longitud,
@@ -513,10 +515,10 @@ $(document).ready(function () {
                 'Observaciones': observaciones,                    
             });
             let a_json = JSON.stringify(a_data);
-            localStorage.setItem('a_data', a_json);            
+            localStorage.setItem('a_data', a_json);                              
         });
     } else {                        
-        let a_data = localStorage.getItem('a_data');
+        let a_data = localStorage.getItem('a_data');         
         /* si el arreglo tiene algo */
         if (a_data) {
             alert("Desea enviar los datos que esta guardados")
