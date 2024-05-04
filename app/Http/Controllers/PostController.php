@@ -29,6 +29,21 @@ class PostController extends Controller
             return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
         }
     }
+
+    public function AddData (Request $request) {        
+        $validated = $request->validate([
+            'Sm_Av' => 'required',
+            'Circuito' => 'required',
+        ]);            
+        try {                        
+            Concentrado::create($request->all());
+            return response()->json(['result' => '1', 'msg' => 'Datos guardados correctamente']);
+        } catch (\Throwable $th) {         
+            $holis = Concentrado::create($request->all());
+            return $holis;
+            return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
+        }
+    }
     
     public function UpdateData (Request $request) {
         $data = $request->except('Latitud', 'Longitud', '_token');        

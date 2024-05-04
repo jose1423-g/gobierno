@@ -39,7 +39,10 @@ Route::post('/CreateData', [PostController::class, 'CreateData']);
 
 Route::post('/UpdateData', [PostController::class, 'UpdateData'])->name('UpdateData');
 
-Route::get('/cerrar_censo', [PostController::class, '']);
+// Route::get('/cerrar_censo', [PostController::class, '']);
+
+/* guarda los datos una vez qeu se restablece la conexiona internet */
+Route::get('/AddData', [PostController::class, 'AddData']);
 
 /* RUTAS A LAS QUE SOLO PUEDE ENTRAR EL ADMIN */
 /* EUTAS PARA GENERAR EL EXCEL */

@@ -530,8 +530,8 @@ $(document).ready(function () {
             $("#load_spinner").addClass('flex');            
             var a_data = JSON.stringify(a_data);
             $.ajax({
-                type: 'POST',
-                url: '/CreateData', 
+                type: 'GET',
+                url: '/AddData', 
                 data: a_data,                     
                 success: function(data){                       
                     var result = data.result
