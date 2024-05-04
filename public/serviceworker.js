@@ -3,7 +3,7 @@ var filesToCache = [
     './offline',
     './build/assets/app-DjqbFPtv.css',
     './build/assets/app-uzqnvh6b.css', 
-    './build/assets/app-Dn9prmiO.js',
+    './build/assets/app-DDOQWyfN.js',
     './images/icons/logo_gobierno.png',
 ];
 

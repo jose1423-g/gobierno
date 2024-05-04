@@ -522,7 +522,7 @@ $(document).ready(function () {
         /* si el arreglo tiene algo */
         if (a_data) {
             alert("Desea enviar los datos que esta guardados")
-            Create();
+            Create();            
             return false;
         }
         function Create () {
@@ -539,6 +539,7 @@ $(document).ready(function () {
                         $("#load_spinner").removeClass('flex')
                         $("#load_spinner").addClass('hidden')
                         $(".hidden_msg").addClass('hidden');
+                        localStorage.clear();
                         alert(data.msg)
                     } else {
                         alert(data.msg)
