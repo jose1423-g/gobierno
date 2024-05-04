@@ -1,7 +1,7 @@
 <nav class="bg-white border-gray-200 shadow-lg dark:bg-gray-900 h-[4rem]">
   <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-3 mx-auto">
     <a href="{{ route('welcome') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="/img/logo_gobierno.jpg" class="h-10" alt="Logo Gobierno del estado" />
+        <img src="/img/logo_gobierno.png" class="h-10" alt="Logo Gobierno del estado" />
         {{-- <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> --}}
     </a>
     <button type="button" class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100" id="btn-navbar">
@@ -16,6 +16,9 @@
         <li>
           <a href="{{ route('read') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('read') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">lista de censos</a>
         </li>          
+        <li>
+          <a href="{{ route('users') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('users') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Users</a>
+        </li>
         <li>
           <a href="{{ route('Concentrado') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('Concentrado') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">getexcel</a>
         </li>          

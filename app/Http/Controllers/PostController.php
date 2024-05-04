@@ -27,12 +27,11 @@ class PostController extends Controller
             $holis = Concentrado::create($request->all());
             return $holis;
             return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
-        }        
+        }
     }
     
     public function UpdateData (Request $request) {
-        $data = $request->except('Latitud', 'Longitud', '_token');
-        // return $data;    
+        $data = $request->except('Latitud', 'Longitud', '_token');        
         try {
             Concentrado::where('id', $request->id)->update($data);    
             return response()->json(['result' => '1', 'msg' => 'Datos actulizados correctamente']);

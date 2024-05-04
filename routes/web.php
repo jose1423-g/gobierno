@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Models\Lamparas;
-use App\Models\Medidas;
+use App\Http\Controllers\UsersController;
 
 // Route::get('/blog/{post}', [PostController::class, 'show'])->name('posts.show');
 
@@ -15,10 +14,22 @@ Route::get('/offline', function () {
     return view('vendor.laravelpwa.offline');
 });
 
+Route::get('/login', function () {    
+    return view('login');
+})->name('login');
+
 Route::get('/concentrado', function () {    
     return view('read');
 })->name('read');
+// ->middleware('auth');
 
+Route::get('/users', function () {    
+    return view('register');
+})->name('users');
+
+
+
+/* rutas para obtener datos */
 Route::get('/gettable', [PostController::class, 'table']);
 
 Route::get('/ShowData', [PostController::class, 'ShowData']);
@@ -34,9 +45,14 @@ Route::get('/cerrar_censo', [PostController::class, '']);
 /* EUTAS PARA GENERAR EL EXCEL */
 Route::get('/Excel-Concentrado', [PostController::class, 'ExcelConcentrado'])->name('Concentrado');
 
-Route::get('/users', [PostController::class, 'getUsers'])->name('users');
+/* obtiene los datos para la tabla usuarios */
+Route::get('/getusers', [UsersController::class, 'gettable']);
 
-Route::post('/create_users', [PostController::class, 'CreateOrUpdate'])->name('create_users');
+Route::get('/ShowUsers', [UsersController::class, 'getUsers']);
+
+Route::post('/create_users', [UsersController::class, 'CreateOrUpdate'])->name('create_users');
+
+// Route::post('/update', [UsersController::class, 'CreateUser'])->name('update_users');
 
 Route::post('/delete_users', [PostController::class, 'delete'])->name('delete_users');
 

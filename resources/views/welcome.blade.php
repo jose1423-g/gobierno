@@ -1,12 +1,11 @@
 
 @extends('layouts.app')
 
-@section('title', '')
+@section('title', 'Gobierno')
 
-@section('meta_description', '')
+@section('meta_description', 'Create')
 
 @section('content')
-
 
 <main class="container px-3 pb-10 mx-auto mt-5 md:px-0">
     <div class="flex justify-center">
