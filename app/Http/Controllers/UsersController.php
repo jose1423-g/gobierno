@@ -17,22 +17,30 @@ class UsersController extends Controller
     }
     
     public function  getUsers (Request $request) {
-        $a_data =  User::select('name', 'email')->where('id', $request->id)->get();
+        $a_data =  User::select('name', 'email', 'EsAdmin')->where('id', $request->id)->get();
         return $a_data;
     }
 
     public function  CreateOrUpdate (Request $request) {
         $datos = $request->except(['_token', 'password_confirmation']);        
         $pass =  $request->password; 
-        $datos['password'] = $pass = bcrypt($pass);        
+        $datos['password'] = $pass = bcrypt($pass);
         $id = $request->id;
+        $es_admin =  $request->EsAdmin;
+        
+        if (strlen($es_admin)) {
+            $datos['EsAdmin'] = 1;
+        }
 
         // $codiciones = [
         //     'id' => $request->id,            
         // ];}
         
         if (strlen($id)) {
-            
+            $datos = $request->except(['_token', 'password', 'password_confirmation']);
+            if (strlen($es_admin)) {
+                $datos['EsAdmin'] = 1;
+            }
             try {
                 User::where('id', $request->id)->update($datos);    
                 return response()->json(['result' => '1', 'msg' => 'Usuario actulizados correctamente']);

@@ -2,9 +2,9 @@
 <div class="justify-around block md:flex">
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="Sm_Av" class="block mb-2 text-sm font-medium text-gray-900">Sm/Av.</label>
-        <input type="text" id="Sm_Av" name="Sm_Av" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">        
+        <input type="text" id="Sm_Av" name="Sm_Av" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500" required>        
         {{-- ERROR --}}
-        <span class="hidden text-red-700 hidden_msg" id="msg_error_sm_av"></span>        
+        {{-- <span class="hidden text-red-700 hidden_msg" id="msg_error_sm_av"></span>         --}}
     </div> 
     <div class="justify-around block md:flex">
         <div class="mb-3 md:w-2/4">

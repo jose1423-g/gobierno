@@ -5,6 +5,7 @@ import TomSelect from "tom-select";
 import 'tom-select/dist/css/tom-select.css';
 import 'datatables.net-dt/css/dataTables.dataTables.min.css';
 import 'tom-select/dist/js/tom-select.complete'
+import { formToJSON } from "axios";
 $(document).ready(function () {
     
     /* menu */
@@ -100,6 +101,9 @@ $(document).ready(function () {
 
     $("#btn_show_modal_user").on('click', function () {
         $("#Modal_static_users").removeClass('hidden')
+        $("#name").val('');
+        $("#email").val('');
+        $("#EsAdmin").prop('checked', false); 
     })
 
     /* CIERRAN EL MODAL */
@@ -121,11 +125,18 @@ $(document).ready(function () {
             data:{
                 id: id                        
             },                    
-            success: function(data){                  
+            success: function(data){                              
                 data.forEach(element => {                               
                     // $("#id_user").val(data.id)
                     $("#name").val(element.name)
-                    $("#email").val(element.email)
+                    $("#email").val(element.email)                    
+                    if (element.EsAdmin) {
+                        $("#EsAdmin").prop('checked', true);
+                    } else {
+                        $("#EsAdmin").prop('checked', false);
+                    }
+
+                    
                 });                
             },
             error: function(xhr, status, error){        
@@ -274,30 +285,9 @@ $(document).ready(function () {
     
     $("#form-data").on('submit',  Create);        
     $("#form_update").on('submit', Update); 
-    $("#btn_cerrar_censo").on('click', Close);
+    // $("#btn_cerrar_censo").on('click', Close);
     btn_navbar.addEventListener('click', DisplayMenu);
 
-    /* obtiene la ubicacion actual del usuario */
-    const options = {
-    enableHighAccuracy: false,
-    // timeout: 5000,
-    maximumAge: 0,
-    };
-    
-    function success(pos) {
-        const crd = pos.coords;        
-        latitud =  crd.latitude
-        longitud =  crd.longitude
-
-        $("#Latitud").val(crd.latitude)
-        $("#Longitud").val(crd.longitude)            
-    };
-
-    function error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-    };
-
-    navigator.geolocation.getCurrentPosition(success, error, options);
     /* CREATE USER */
     function CreateUser (e) {
         $("#load_spinner").removeClass('hidden');
@@ -368,7 +358,7 @@ $(document).ready(function () {
                     table.ajax.reload()
                     $("#load_spinner").removeClass('flex')
                     $("#load_spinner").addClass('hidden')
-                    $(".hidden_msg").addClass('hidden');  
+                    // $(".hidden_msg").addClass('hidden');  
                     alert(data.msg)                  
                 } else {
                     $("#load_spinner").removeClass('flex')
@@ -377,23 +367,24 @@ $(document).ready(function () {
                 }
             },
             error: function(xhr, status, error){        
-                let errors  = xhr.responseJSON.errors;  
-                $("#load_spinner").addClass('hidden')                
-                if (errors.Circuito) {
-                    $("#msg_error_circuito").removeClass('hidden')
-                    $("#msg_error_circuito").text(errors.Circuito)           
-                } else {
-                    $("#msg_error_circuito").addClass('hidden')
-                    $("#msg_error_circuito").text('')
-                }
+                alert(`Ups hemos tenido un error por favor comunicarse con el desarrollador ${error}`)
+                // let errors  = xhr.responseJSON.errors;  
+                // $("#load_spinner").addClass('hidden')                
+                // if (errors.Circuito) {
+                //     $("#msg_error_circuito").removeClass('hidden')
+                //     $("#msg_error_circuito").text(errors.Circuito)           
+                // } else {
+                //     $("#msg_error_circuito").addClass('hidden')
+                //     $("#msg_error_circuito").text('')
+                // }
 
-                if (errors.Sm_Av) {                    
-                    $("#msg_error_sm_av").removeClass('hidden')
-                    $("#msg_error_sm_av").text(errors.Sm_Av)            
-                } else {
-                    $("#msg_error_sm_av").addClass('hidden')
-                    $("#msg_error_sm_av").text('')  
-                }      
+                // if (errors.Sm_Av) {                    
+                //     $("#msg_error_sm_av").removeClass('hidden')
+                //     $("#msg_error_sm_av").text(errors.Sm_Av)            
+                // } else {
+                //     $("#msg_error_sm_av").addClass('hidden')
+                //     $("#msg_error_sm_av").text('')  
+                // }      
             }
         });
     }
@@ -445,124 +436,123 @@ $(document).ready(function () {
         }
     }
 
+     /* obtiene la ubicacion actual del usuario */
+     const options = {
+        enableHighAccuracy: false,
+        // timeout: 5000,
+        maximumAge: 0,
+    };
+    
+    function success(pos) {
+        const crd = pos.coords;        
+        latitud =  crd.latitude
+        longitud =  crd.longitude
+
+        $("#Latitud").val(crd.latitude)
+        $("#Longitud").val(crd.longitude)            
+    };
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    };
+
+    setInterval(CheckInternet, 5000);
+
     /* ejemplo por si el usuario no tiene internet */
-    if (!navigator.onLine) {                   
-        /* obtiene la ubicacion actual del usuario */
-        const options = {
-            enableHighAccuracy: false,
-            // timeout: 5000,
-            maximumAge: 0,
-        };
+    function CheckInternet() {        
+        if (!navigator.onLine) {                   
+            /* obtiene la ubicacion actual del usuario */
+            navigator.geolocation.getCurrentPosition(success, error, options);
 
-        function success(pos) {
-            const crd = pos.coords;        
-            latitud =  crd.latitude
-            longitud =  crd.longitude
+            $("#form-data-offline").on('submit',  function () {                
+                // let csrf_token = $('#form-data input[name="_token"]').val();
+                let sm_av = $("#Sm_Av").val()
+                let latitud = $("#Latitud").val()
+                let longitud = $("#Longitud").val()
+                let posicion =  $("#Posicion").val()
+                let rpu =  $("#RPU").val()
+                let municipalizado = $("#Municipalizado").val()
+                let id_medida = $("#Id_medida_fk").val()
+                let Id_transformador = $("#Id_transformador_fk").val()
+                let Circuito = $("#Circuito").val()
+                let num_medidor = $("#NumMedidor").val()
+                let luminarias = $("#Luminarias").val()
+                let id_estatus = $("#Id_estatus_fk").val()
+                let id_lampara = $("#Id_lampara_fk").val()
+                let id_tipo_luminaria = $("#id_tipoLuminaria_fk").val()
+                let id_potencia = $("#Id_potencia_fk").val()
+                let etiqueta = $("#Etiqueta").val()
+                let id_potencia_fk = $("#Id_poste_fk").val()
+                let dependencia = $("#Id_dependencia_fk").val()
+                let id_altura =  $("#Id_altura_fk").val()
+                let observaciones = $("#Observaciones").val() 
 
-            $("#Latitud").val(crd.latitude)
-            $("#Longitud").val(crd.longitude)    
-        }
-
-        function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-        }    
-        navigator.geolocation.getCurrentPosition(success, error, options);
-
-        $("#form-data-offline").on('submit',  function () {
-            let csrf_token = $('#form-data input[name="_token"]').val();
-            let sm_av = $("#Sm_Av").val()
-            let latitud = $("#Latitud").val()
-            let longitud = $("#longitud").val()
-            let posicion =  $("#Posicion").val()
-            let rpu =  $("#RPU").val()
-            let municipalizado = $("#Municipalizado").val()
-            let id_medida = $("#Id_medida_fk").val()
-            let Id_transformador = $("#Id_transformador_fk").val()
-            let Circuito = $("#Circuito").val()
-            let num_medidor = $("#NumMedidor").val()
-            let luminarias = $("#Luminarias").val()
-            let id_estatus = $("#Id_estatus_fk").val()
-            let id_lampara = $("#Id_lampara_fk").val()
-            let id_tipo_luminaria = $("#id_tipoLuminaria_fk").val()
-            let id_potencia = $("#Id_potencia_fk").val()
-            let etiqueta = $("#Etiqueta").val()
-            let id_potencia_fk = $("#Id_poste_fk").val()
-            let dependencia = $("#Id_dependencia_fk").val()
-            let id_altura =  $("#Id_altura_fk").val()
-            let observaciones = $("#Observaciones").val() 
-
-            a_data.push({
-                '_token': csrf_token,
-                'Sm_Av': sm_av,
-                'Latitud': latitud,
-                'longitud': longitud,
-                'Posicion': posicion,
-                'RPU': rpu,
-                'Municipalizado': municipalizado,
-                'Id_medida_fk': id_medida,
-                'Id_transformador_fk': Id_transformador,
-                'Circuito': Circuito,
-                'NumMedidor': num_medidor,
-                'Luminarias': luminarias,
-                'Id_estatus_fk': id_estatus,
-                'Id_lampara_fk': id_lampara,
-                'id_tipoLuminaria_fk': id_tipo_luminaria,
-                'Id_potencia_fk': id_potencia,
-                'Etiqueta': etiqueta,
-                'Id_poste_fk': id_potencia_fk,
-                'Id_dependencia_fk': dependencia,
-                'Id_altura_fk': id_altura,
-                'Observaciones': observaciones,                    
+                a_data.push({                
+                    'Sm_Av': sm_av,
+                    'Latitud': latitud,
+                    'Longitud': longitud,
+                    'Posicion': posicion,
+                    'RPU': rpu,
+                    'Municipalizado': municipalizado,
+                    'Id_medida_fk': id_medida,
+                    'Id_transformador_fk': Id_transformador,
+                    'Circuito': Circuito,
+                    'NumMedidor': num_medidor,
+                    'Luminarias': luminarias,
+                    'Id_estatus_fk': id_estatus,
+                    'Id_lampara_fk': id_lampara,
+                    'id_tipoLuminaria_fk': id_tipo_luminaria,
+                    'Id_potencia_fk': id_potencia,
+                    'Etiqueta': etiqueta,
+                    'Id_poste_fk': id_potencia_fk,
+                    'Id_dependencia_fk': dependencia,
+                    'Id_altura_fk': id_altura,
+                    'Observaciones': observaciones,                    
+                });                
+                localStorage.setItem('a_data', JSON.stringify(a_data));
             });
-            let a_json = JSON.stringify(a_data);
-            localStorage.setItem('a_data', a_json);                              
-        });
-    } else {                        
-        let a_data = localStorage.getItem('a_data');         
-        /* si el arreglo tiene algo */
-        if (a_data) {
-            alert("Desea enviar los datos que esta guardados")
-            Create();            
-            return false;
-        }
-        function Create () {
-            $("#load_spinner").removeClass('hidden');
-            $("#load_spinner").addClass('flex');            
-            var a_data = JSON.stringify(a_data);
-            $.ajax({
-                type: 'GET',
-                url: '/AddData', 
-                data: a_data,                     
-                success: function(data){                       
-                    var result = data.result
-                    if (result == 1) {
+
+        } else {
+    
+            navigator.geolocation.getCurrentPosition(success, error, options);
+
+            let a_data_add = JSON.parse(localStorage.getItem('a_data'));
+            if (a_data_add !== null) {                
+                alert("Desea enviar los datos que esta guardados")                                                                                
+                Create(a_data_add);
+            }
+
+            function Create (a_data_add) {
+                $("#load_spinner").removeClass('hidden');
+                $("#load_spinner").addClass('flex');                                
+                $.ajax({
+                    type: 'GET',
+                    url: '/AddData',
+                    // data: a_data_add,
+                    data:{ data: a_data_add },
+                    success: function(data){                       
+                        var result = data.result
+                        if (result == 1) {
+                            $("#load_spinner").removeClass('flex')
+                            $("#load_spinner").addClass('hidden')
+                            // $(".hidden_msg").addClass('hidden');
+                            localStorage.clear();
+                            alert(`success  ${data.msg}`)
+                            localStorage.clear();                            
+                        } else {
+                            $("#load_spinner").removeClass('flex')
+                            $("#load_spinner").addClass('hidden')
+                            alert(`error  ${data.msg}`)
+                            // localStorage.clear();
+                        }
+                    },
+                    error: function(xhr, status, error){                            
+                        alert(`error http ${error}`)
                         $("#load_spinner").removeClass('flex')
                         $("#load_spinner").addClass('hidden')
-                        $(".hidden_msg").addClass('hidden');
-                        localStorage.clear();
-                        alert(data.msg)
-                    } else {
-                        alert(data.msg)
                     }
-                },
-                error: function(xhr, status, error){                            
-                    alert(`${error}`)
-                }
-            });  
-        }      
+                });  
+            }      
+        }
     }
 });
-
-
-// ({'Nombre': nombre, 'ApellidoP': apellido, 'ApellidoM': apellidoM, 'idPaciente': id, 'Fecha': fecha, 'sexo': sexo})
-/* GUARDAR DATOS */
-// form_data.addEventListener('keydown', keydowOff)
-// function keydowOff(e) {
-//     if (e.key === 'Enter') {
-//         e.preventDefault(); // Evitar la acción predeterminada del Enter
-//     }
-// }
-// console.log("Tu ubicación actual es:");
-// console.log(`Latitud : ${crd.latitude}`);
-// console.log(`Longitud: ${crd.longitude}`);
-// console.log(`Más o menos ${crd.accuracy} metros.`);

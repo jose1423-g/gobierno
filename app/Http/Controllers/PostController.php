@@ -15,10 +15,10 @@ use PhpParser\Node\Stmt\TryCatch;
 class PostController extends Controller
 {
     public function CreateData (Request $request) {        
-        $validated = $request->validate([
-            'Sm_Av' => 'required',
-            'Circuito' => 'required',
-        ]);
+        // $validated = $request->validate([
+        //     'Sm_Av' => 'required',
+        //     'Circuito' => 'required',
+        // ]);
             
         try {                        
             Concentrado::create($request->all());
@@ -31,15 +31,17 @@ class PostController extends Controller
     }
 
     public function AddData (Request $request) {        
-        $validated = $request->validate([
-            'Sm_Av' => 'required',
-            'Circuito' => 'required',
-        ]);            
+        $items = $request->data;
+        // $items =  json_decode($request->data);
+        // return $items;
+        // foreach ($items as $row) {
+        //     echo $row;
+        // }
         try {                        
-            Concentrado::create($request->all());
+            $holis = Concentrado::create($items[0]);            
             return response()->json(['result' => '1', 'msg' => 'Datos guardados correctamente']);
-        } catch (\Throwable $th) {         
-            $holis = Concentrado::create($request->all());
+        } catch (\Throwable $th) {            
+            $holis = Concentrado::create($items[0]);
             return $holis;
             return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
         }
