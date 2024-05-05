@@ -456,103 +456,113 @@ $(document).ready(function () {
         console.warn(`ERROR(${err.code}): ${err.message}`);
     };
 
-    setInterval(CheckInternet, 5000);
+    navigator.geolocation.getCurrentPosition(success, error, options);
+    
 
     /* ejemplo por si el usuario no tiene internet */
-    function CheckInternet() {        
-        if (!navigator.onLine) {                   
-            /* obtiene la ubicacion actual del usuario */
-            navigator.geolocation.getCurrentPosition(success, error, options);
-
-            $("#form-data-offline").on('submit',  function () {                
-                // let csrf_token = $('#form-data input[name="_token"]').val();
-                let sm_av = $("#Sm_Av").val()
-                let latitud = $("#Latitud").val()
-                let longitud = $("#Longitud").val()
-                let posicion =  $("#Posicion").val()
-                let rpu =  $("#RPU").val()
-                let municipalizado = $("#Municipalizado").val()
-                let id_medida = $("#Id_medida_fk").val()
-                let Id_transformador = $("#Id_transformador_fk").val()
-                let Circuito = $("#Circuito").val()
-                let num_medidor = $("#NumMedidor").val()
-                let luminarias = $("#Luminarias").val()
-                let id_estatus = $("#Id_estatus_fk").val()
-                let id_lampara = $("#Id_lampara_fk").val()
-                let id_tipo_luminaria = $("#id_tipoLuminaria_fk").val()
-                let id_potencia = $("#Id_potencia_fk").val()
-                let etiqueta = $("#Etiqueta").val()
-                let id_potencia_fk = $("#Id_poste_fk").val()
-                let dependencia = $("#Id_dependencia_fk").val()
-                let id_altura =  $("#Id_altura_fk").val()
-                let observaciones = $("#Observaciones").val() 
-
-                a_data.push({                
-                    'Sm_Av': sm_av,
-                    'Latitud': latitud,
-                    'Longitud': longitud,
-                    'Posicion': posicion,
-                    'RPU': rpu,
-                    'Municipalizado': municipalizado,
-                    'Id_medida_fk': id_medida,
-                    'Id_transformador_fk': Id_transformador,
-                    'Circuito': Circuito,
-                    'NumMedidor': num_medidor,
-                    'Luminarias': luminarias,
-                    'Id_estatus_fk': id_estatus,
-                    'Id_lampara_fk': id_lampara,
-                    'id_tipoLuminaria_fk': id_tipo_luminaria,
-                    'Id_potencia_fk': id_potencia,
-                    'Etiqueta': etiqueta,
-                    'Id_poste_fk': id_potencia_fk,
-                    'Id_dependencia_fk': dependencia,
-                    'Id_altura_fk': id_altura,
-                    'Observaciones': observaciones,                    
-                });                
-                localStorage.setItem('a_data', JSON.stringify(a_data));
-            });
-
-        } else {
     
-            navigator.geolocation.getCurrentPosition(success, error, options);
 
-            let a_data_add = JSON.parse(localStorage.getItem('a_data'));
-            if (a_data_add !== null) {                
-                alert("Desea enviar los datos que esta guardados")                                                                                
-                Create(a_data_add);
+    if (!navigator.onLine) {                   
+        /* obtiene la ubicacion actual del usuario */
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
+        $("#btn_save_data").on('click',  function () {                
+            // let csrf_token = $('#form-data input[name="_token"]').val();
+            let sm_av = $("#Sm_Av").val()
+            let latitud = $("#Latitud").val()
+            let longitud = $("#Longitud").val()
+            let posicion =  $("#Posicion").val()
+            let rpu =  $("#RPU").val()
+            let municipalizado = $("#Municipalizado").val()
+            let id_medida = $("#Id_medida_fk").val()
+            let Id_transformador = $("#Id_transformador_fk").val()
+            let Circuito = $("#Circuito").val()
+            let num_medidor = $("#NumMedidor").val()
+            let luminarias = $("#Luminarias").val()
+            let id_estatus = $("#Id_estatus_fk").val()
+            let id_lampara = $("#Id_lampara_fk").val()
+            let id_tipo_luminaria = $("#id_tipoLuminaria_fk").val()
+            let id_potencia = $("#Id_potencia_fk").val()
+            let etiqueta = $("#Etiqueta").val()
+            let id_potencia_fk = $("#Id_poste_fk").val()
+            let dependencia = $("#Id_dependencia_fk").val()
+            let id_altura =  $("#Id_altura_fk").val()
+            let observaciones = $("#Observaciones").val() 
+
+            let datos = {                
+                'Sm_Av': sm_av,
+                'Latitud': latitud,
+                'Longitud': longitud,
+                'Posicion': posicion,
+                'RPU': rpu,
+                'Municipalizado': municipalizado,
+                'Id_medida_fk': id_medida,
+                'Id_transformador_fk': Id_transformador,
+                'Circuito': Circuito,
+                'NumMedidor': num_medidor,
+                'Luminarias': luminarias,
+                'Id_estatus_fk': id_estatus,
+                'Id_lampara_fk': id_lampara,
+                'id_tipoLuminaria_fk': id_tipo_luminaria,
+                'Id_potencia_fk': id_potencia,
+                'Etiqueta': etiqueta,
+                'Id_poste_fk': id_potencia_fk,
+                'Id_dependencia_fk': dependencia,
+                'Id_altura_fk': id_altura,
+                'Observaciones': observaciones
             }
 
-            function Create (a_data_add) {
-                $("#load_spinner").removeClass('hidden');
-                $("#load_spinner").addClass('flex');                                
-                $.ajax({
-                    type: 'GET',
-                    url: '/AddData',
-                    // data: a_data_add,
-                    data:{ data: a_data_add },
-                    success: function(data){                       
-                        var result = data.result
-                        if (result == 1) {
-                            $("#load_spinner").removeClass('flex')
-                            $("#load_spinner").addClass('hidden')
-                            // $(".hidden_msg").addClass('hidden');
-                            localStorage.clear();
-                            alert(`success  ${data.msg}`)
-                            localStorage.clear();                            
-                        } else {
-                            $("#load_spinner").removeClass('flex')
-                            $("#load_spinner").addClass('hidden')
-                            alert(`error  ${data.msg}`)
-                            // localStorage.clear();
-                        }
-                    },
-                    error: function(xhr, status, error){                            
-                        alert(`error http ${error}`)
+            a_data.push(datos);
+
+        });
+        
+        $("#btn_save_local").on('click', function () {                    
+            alert("Datos guardados localmete correctamente")
+            localStorage.setItem('a_data', JSON.stringify(a_data));        
+            
+        });
+
+    } else {
+
+        let a_data_add = JSON.parse(localStorage.getItem('a_data'));        
+        if (a_data_add !== null) {                
+            alert("Desea enviar los datos que esta guardados")            
+            Create(a_data_add);
+        } else {
+            console.log("no tiene")
+        }
+
+        function Create (a_data_add) {
+            $("#load_spinner").removeClass('hidden');
+            $("#load_spinner").addClass('flex');                                
+            $.ajax({
+                type: 'GET',
+                url: '/AddData',
+                // data: a_data_add,
+                data:{ data: a_data_add },
+                success: function(data){                       
+                    var result = data.result
+                    if (result == 1) {
                         $("#load_spinner").removeClass('flex')
                         $("#load_spinner").addClass('hidden')
+                        // $(".hidden_msg").addClass('hidden');
+                        localStorage.clear();
+                        alert(`success  ${data.msg}`)
+                        localStorage.clear();                            
+                    } else {
+                        $("#load_spinner").removeClass('flex')
+                        $("#load_spinner").addClass('hidden')
+                        alert(`error  ${data.msg}`)
+                        // localStorage.clear();
                     }
-                });  
-            }      
-        }
+                },
+                error: function(xhr, status, error){                            
+                    alert(`error http ${error}`)
+                    $("#load_spinner").removeClass('flex')
+                    $("#load_spinner").addClass('hidden')
+                }
+            });  
+        }      
     }
+
 });

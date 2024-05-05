@@ -30,19 +30,17 @@ class PostController extends Controller
         }
     }
 
-    public function AddData (Request $request) {        
+
+    public function AddData (Request $request) {
         $items = $request->data;
-        // $items =  json_decode($request->data);
-        // return $items;
-        // foreach ($items as $row) {
-        //     echo $row;
-        // }
-        try {                        
-            $holis = Concentrado::create($items[0]);            
+        
+        try {               
+            foreach ($items as $row) {
+                Concentrado::create($row);                
+            }                                 
+            // Concentrado::create($items);
             return response()->json(['result' => '1', 'msg' => 'Datos guardados correctamente']);
         } catch (\Throwable $th) {            
-            $holis = Concentrado::create($items[0]);
-            return $holis;
             return response()->json(['result' => '0', 'msg' => 'Error al guardar los datos']);
         }
     }
