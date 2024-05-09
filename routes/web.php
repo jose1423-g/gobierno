@@ -36,14 +36,14 @@ Route::get('/gettable', [PostController::class, 'table'])->middleware('auth');
 Route::get('/ShowData', [PostController::class, 'ShowData'])->middleware('auth');
 
 /* RUTAS PARA CREAR Y ACTULIZAR */
-Route::post('/CreateData', [PostController::class, 'CreateData'])->middleware('auth');
+Route::post('/CreateData', [PostController::class, 'CreateData']);
 
 Route::post('/UpdateData', [PostController::class, 'UpdateData'])->name('UpdateData')->middleware('auth');
 
 // Route::get('/cerrar_censo', [PostController::class, '']);
 
 /* guarda los datos una vez qeu se restablece la conexiona internet */
-Route::get('/AddData', [PostController::class, 'AddData'])->middleware('auth');
+Route::get('/AddData', [PostController::class, 'AddData']);
 
 /* RUTAS A LAS QUE SOLO PUEDE ENTRAR EL ADMIN */
 /* EUTAS PARA GENERAR EL EXCEL */

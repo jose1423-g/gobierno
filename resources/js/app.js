@@ -239,7 +239,7 @@ $(document).ready(function () {
         var formData = $(this).serialize();        
         $.ajax({
             type: 'POST',
-            url: '/CreateData', 
+            url: '/CreateData',
             data: formData,                     
             success: function(data){                       
                 var result = data.result
