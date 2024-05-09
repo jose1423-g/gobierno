@@ -9,20 +9,20 @@
 
 <main class="px-5">
     
-    <div class="relative p-5 overflow-x-auto shadow-md sm:rounded-lg">
-        <table id="table_users" class="max-w-full text-sm text-gray-500">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                    <th scope="col" class="px-6 py-3">id</th>
-                    <th scope="col" class="px-6 py-3">Editar</th>
-                    <th scope="col" class="px-6 py-3">User</th>              
-                    <th scope="col" class="px-6 py-3">Email</th>                                        
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table> 
-        <button type="button" id="btn_show_modal_user" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">New User</button>   
-    </div>   
+<div class="relative p-5 overflow-x-auto shadow-md sm:rounded-lg">
+    <table id="table_users" class="max-w-full text-sm text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">id</th>
+                <th scope="col" class="px-6 py-3">Editar</th>
+                <th scope="col" class="px-6 py-3">User</th>              
+                <th scope="col" class="px-6 py-3">Email</th>                                        
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table> 
+    <button type="button" id="btn_show_modal_user" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">New User</button>   
+</div>   
     
 {{-- modal --}} 
 <div id="Modal_static_users" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -48,20 +48,20 @@
                     <input type="hidden" id="id_user" name="id">{{-- input hidden --}}
                     <div class="mb-5">
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">name</label>
-                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
+                        <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" required>
                         <span class="hidden text-red-700 hidden_msg" id="msg_error_name"></span> 
                     </div>
                     <div class="mb-5">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="text" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
+                        <input type="text" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" required>
                         <span class="hidden text-red-700 hidden_msg" id="msg_error_email"></span> 
                     </div>
                     <div class="mb-5">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
-                        <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
+                        <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" required>
                         <span class="hidden text-red-700 hidden_msg" id="msg_error_pass"></span> 
                     </div>
-                    <div>
+                    <div class="mb-5" id="content-pass-confirm">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="password_confirmation">confirm Password</label>                            
                         <input type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" id="password_confirmation" name="password_confirmation">
                     </div>

@@ -70,11 +70,38 @@ class PostController extends Controller
 
     public function ShowData(Request $request) {      
         /* cambiar los procesos el seelct para que pueda traer datos que se ingresaron a mano */  
-        $a_data =  Concentrado::select()->where('id', $request->id)->get();
+        $a_data =  Concentrado::select(
+        'Sm_Av',
+        'Latitud',
+        'Longitud',        
+        DB::raw('COALESCE(medidas.Descripcion, concentrado.Id_medida_fk) AS Id_medida_fk'),        
+        DB::raw('COALESCE(transformador.Voltaje, concentrado.Id_transformador_fk) AS Id_transformador_fk'),
+        'Circuito',
+        'NumMedidor',
+        'Luminarias',        
+        DB::raw('COALESCE(estatus.descripcion, concentrado.Id_estatus_fk) AS Id_estatus_fk'),        
+        DB::raw('COALESCE(lamparas.descripcion, concentrado.Id_lampara_fk) AS Id_lampara_fk'),        
+        DB::raw('COALESCE(lamparas.descripcion, concentrado.Id_tipoLuminaria_fk) AS Id_tipoLuminaria_fk'),
+        DB::raw('COALESCE(potencia.descripcion, concentrado.Id_potencia_fk) AS Id_potencia_fk'),
+        'Etiqueta',        
+        DB::raw('COALESCE(tipoposte.descripcion, concentrado.Id_poste_fk) AS Id_poste_fk'),
+        DB::raw('COALESCE(dependencia.descripcion, concentrado.Id_dependencia_fk) AS Id_dependencia_fk'),
+        DB::raw('COALESCE(altura.descripcion, concentrado.Id_altura_fk) AS Id_altura_fk'),
+        'Observaciones'
+        )
+        ->leftjoin('medidas','concentrado.id_medida_fk','=','medidas.id_medida')
+        ->leftjoin('lamparas','concentrado.id_lampara_fk','=','lamparas.id_lampara')
+        ->leftjoin('potencia','concentrado.id_potencia_fk','=','potencia.id_potencia')
+        ->leftjoin('tipoposte','concentrado.id_poste_fk','=','tipoposte.id_poste')
+        ->leftjoin('dependencia','concentrado.id_dependencia_fk','=','dependencia.id_dependencia')
+        ->leftjoin('altura','concentrado.id_altura_fk','=','altura.id_altura')
+        ->leftjoin('estatus','concentrado.id_estatus_fk','=','estatus.id_estatus')
+        ->leftjoin('transformador','concentrado.id_transformador_fk','=','transformador.id_transformador')        
+        ->where('id', $request->id)->get();
         return $a_data;
     }
 
-    public function ExcelConcentrado() {
+    public function ExcelConcentrado () {
         
         $a_data = Concentrado::select(
         'concentrado.Sm_Av',
@@ -179,18 +206,6 @@ class PostController extends Controller
         
         /* descarga el excel */
         $writer = new Xlsx($spreadsheet);        
-        $writer->save('php://output'); 
-        
-        //agrega formulas
-        // $activeWorksheet->setCellValue('D2', '=SUM(A2:C2)');
-        // Establecer el color de fondo de una celda
-        // $activeWorksheet->getStyle('A1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('FFFF00');
-        // Establecer el color de fuente de una celda
-        // $activeWorksheet->getStyle('A1')->getFont()->getColor()->setARGB('FF0000');
-        // select('shoppingcart.id', 'productos.Nombre', 'shoppingcart.Cantidad', 'shoppingcart.Precio', 'shoppingcart.Extra', 'categorias.Categoria')
-        // ->leftjoin('productos','productos.id','=','shoppingcart.IdProducto_fk')
-        // ->leftjoin('categorias','productos.idCategoria_fk','=','categorias.id')
-        // ->where('shoppingcart.idUsuario_fk', $id_user)
-        // ->get();
+        $writer->save('php://output');
     } 
 }

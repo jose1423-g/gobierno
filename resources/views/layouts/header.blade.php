@@ -13,17 +13,36 @@
         <li>
           <a href="{{ route('welcome') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('welcome') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Home</a>
         </li>
-        <li>
-          <a href="{{ route('read') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('read') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">lista de censos</a>
-        </li>          
-        <li>
-          <a href="{{ route('users') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('users') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Users</a>
-        </li>
-        <li>
-          <a href="{{ route('Concentrado') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('Concentrado') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">getexcel</a>
-        </li>          
+        @auth                  
+          <li>
+            <a href="{{ route('read') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('read') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Lista de censos</a>
+          </li>          
+          <li>
+            <a href="{{ route('users') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('users') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Users</a>
+          </li>
+          <li>
+            <a href="{{ route('excel') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('excel') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Getexcel</a>
+          </li>
+          @if (Auth::check())
+            <li>
+              <a href="" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0">
+                  <button class="w-6 text-green-700">{{ auth()->user()->name }}</button>                
+              </a>
+            </li>
+          @endif
+        @endauth
+        @guest
+          <li>
+            <a href="{{ route('login') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('login') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Login</a>
+          </li>
+        @endguest
+        @auth
+          <form class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0" action="{{ route('logout') }}" method="post">
+              @csrf
+              <button type="submit" class="text-red-700">Logout</button>
+          </form>
+        @endauth
       </ul>
     </div>
   </div>
 </nav>
-  

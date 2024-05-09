@@ -5,15 +5,115 @@ import TomSelect from "tom-select";
 import 'tom-select/dist/css/tom-select.css';
 import 'datatables.net-dt/css/dataTables.dataTables.min.css';
 import 'tom-select/dist/js/tom-select.complete'
-import { formToJSON } from "axios";
 $(document).ready(function () {
-    
-    /* menu */
+
+    let  id_medida_fk = document.getElementById("Id_medida_fk");
+    let  id_lampara_fk = document.getElementById("Id_lampara_fk");
+    let  Id_potencia_fk  = document.getElementById("Id_potencia_fk");
+    let  Id_poste_fk = document.getElementById("Id_poste_fk");
+    let  Id_dependencia_fk  = document.getElementById("Id_dependencia_fk");
+    let  Id_altura_fk = document.getElementById("Id_altura_fk");
+    let  Id_transformador_fk = document.getElementById("Id_transformador_fk");
+    let  Id_estatus_fk = document.getElementById("Id_estatus_fk");
+    let  id_tipoLuminaria_fk = document.getElementById("id_tipoLuminaria_fk");
+
+    let id_medida;
+    if (id_medida_fk) {
+        id_medida = new TomSelect("#Id_medida_fk", {            
+            create: true,        
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+    let id_lampara;
+    if (id_lampara_fk) {
+        id_lampara = new TomSelect("#Id_lampara_fk", {
+            create: true,        
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+    let id_potencia;
+    if (Id_potencia_fk) {
+        id_potencia = new TomSelect("#Id_potencia_fk", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+    let id_poste;
+    if (Id_poste_fk) {
+        id_poste = new TomSelect("#Id_poste_fk", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+    let id_dependencia;
+    if (Id_dependencia_fk) {
+        id_dependencia = new TomSelect("#Id_dependencia_fk", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+    let id_altura;
+    if (Id_altura_fk) {
+        id_altura = new TomSelect("#Id_altura_fk", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+    let id_transformador;
+    if (Id_transformador_fk) {
+        id_transformador = new TomSelect("#Id_transformador_fk", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+    let id_estatus;
+    if (Id_estatus_fk) {
+        id_estatus = new TomSelect("#Id_estatus_fk", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+
+    let id_luminaria;
+    if (id_tipoLuminaria_fk) {
+        id_luminaria =  new TomSelect("#id_tipoLuminaria_fk", {
+            create: true,
+            sortField: {
+                field: "text",
+                direction: "desc"
+            }
+        });    
+    }
+ 
     let btn_navbar = document.getElementById('btn-navbar');
     let content_menu = document.getElementById('navbar-default');
     let a_data = [];
-    let latitud = '';
-    let longitud = '';
+    // let latitud = '';
+    // let longitud = '';
 
     let table = new DataTable('#table', {
         reponsive: true,
@@ -56,97 +156,23 @@ $(document).ready(function () {
         ShowData(id)    
     });
 
-    /* CIERRAN EL MODAL */
+    $("#form-data").on('submit',  Create);        
+    $("#form_update").on('submit', Update); 
+
+    /* CIERRAN EL MODAL CON EL ICON X*/
     $("#btn_close_modal").on('click', function () {        
         $("#Modal_static").addClass('hidden')
     })
 
+    /* CIERRA EL MODAL CON EL BOTON CANCELAR */
     $("#btn_cancelar_modal").on('click',  function () {
         $("#Modal_static").addClass('hidden')
     })
 
-    let table_users = new DataTable('#table_users', {
-        reponsive: true,
-        processing: true,   
-        searching: true,     
-        // serverSide: true,
-        ajax: {
-            url: '/getusers',
-            dataSrc: 'data'
-        },
-        "columnDefs":[
-            {
-            "targets": [0], // Índice de la columna que deseas ocultar (comienza desde 0)
-            "visible": true, // Establece esta columna como no visible
-            "searchable": false
-           }           
-        ],
-        "columns":[ 
-            { data: 'id'},
-            { data: 'boton'},
-            { data: 'name'},            
-            { data: 'email'},                  
-        ]
-    });
-
-    /* OBTIENE EL ID DE LA TABLA USUSARIOS */
-    $('#table_users tbody').on('click', '#btn_show_user', function() {
-        var rowData = table_users.row($(this).closest('tr')).data(); // Obtener los datos de la fila
-        var id = rowData.id; // Obtener el valor de la columna 'id' de los datos de la fila        
-        $("#Modal_static_users").removeClass('hidden')
-        $("#Modal_static_users").addClass('flex')        
-        $("#id_user").val(id);
-        ShowUsers(id)    
-    });
-
-    $("#btn_show_modal_user").on('click', function () {
-        $("#Modal_static_users").removeClass('hidden')
-        $("#name").val('');
-        $("#email").val('');
-        $("#EsAdmin").prop('checked', false); 
-    })
-
-    /* CIERRAN EL MODAL */
-    $("#btn_close_modal_users").on('click', function () {        
-        $("#Modal_static_users").addClass('hidden')
-    })
-
-    $("#btn_cancelar_modal_users").on('click',  function () {
-        $("#Modal_static_users").addClass('hidden')
-    })
-
-    $("#form_create_users").on('submit', CreateUser);
-
-
-    function ShowUsers(id) {                
-        $.ajax({
-            type: 'GET',
-            url: '/ShowUsers', 
-            data:{
-                id: id                        
-            },                    
-            success: function(data){                              
-                data.forEach(element => {                               
-                    // $("#id_user").val(data.id)
-                    $("#name").val(element.name)
-                    $("#email").val(element.email)                    
-                    if (element.EsAdmin) {
-                        $("#EsAdmin").prop('checked', true);
-                    } else {
-                        $("#EsAdmin").prop('checked', false);
-                    }
-
-                    
-                });                
-            },
-            error: function(xhr, status, error){        
-                console.error(error)                
-            }
-        });
-    }
-
-    /* MUESTRA LOS DATOS EN EL MODAL */
-    function ShowData(id) {                
+    /* MUESTRA LOS DATOS DEL CONCETRADO PERMITE ACTUALIZAR */
+    function ShowData(id) {
+        $("#load_spinner").removeClass('hidden');
+        $("#load_spinner").addClass('flex');
         $.ajax({
             type: 'GET',
             url: '/ShowData', 
@@ -154,195 +180,58 @@ $(document).ready(function () {
                 id: id                        
             },                    
             success: function(data){  
+                if (data) {                                                        
+                    data.forEach(element => {
+                        $("#Sm_Av").val(element.Sm_Av)
+                        $("#Latitud").val(element.Latitud)
+                        $("#Longitud").val(element.Longitud)                    
+                        $("#Circuito").val(element.Circuito)
+                        $("#NumMedidor").val(element.NumMedidor)
+                        $("#Luminarias").val(element.Luminarias)
+                        $("#Etiqueta").val(element.Etiqueta)                    
+                        $("#Observaciones").val(element.Observaciones)
 
-                data.forEach(element => {                               
-                    $("#Sm_Av").val(element.Sm_Av)
-                    $("#Latitud").val(element.Latitud)
-                    $("#Longitud").val(element.Longitud)
-                    $("#Id_medida_fk").val(element.Id_medida_fk)
-                    $("#Id_transformador_fk").val(element.Id_transformador_fk)
-                    $("#Circuito").val(element.Circuito)
-                    $("#NumMedidor").val(element.NumMedidor)
-                    $("#Luminarias").val(element.Luminarias)
-                    $("#Id_estatus_fk").val(element.Id_estatus_fk)
-                    $("#Id_lampara_fk").val(element.Id_lampara_fk)
-                    $("#id_tipoLuminaria_fk").val(element.id_tipoLuminaria_fk)
-                    $("#Id_potencia_fk").val(element.Id_potencia_fk)
-                    $("#Etiqueta").val(element.Etiqueta)
-                    $("#Id_poste_fk").val(element.Id_poste_fk)
-                    $("#Id_dependencia_fk").val(element.Id_dependencia_fk)
-                    $("#Id_altura_fk").val(element.Id_altura_fk)
-                    $("#Observaciones").val(element.Observaciones)
-                });                
+                        id_medida.addOption({value: element.Id_medida_fk, text: element.Id_medida_fk});                    
+                        id_medida.setValue(element.Id_medida_fk);// Seleccionar la opción recién agregada
+                        
+                        id_transformador.addOption({value: element.Id_transformador_fk, text: element.Id_transformador_fk});
+                        id_transformador.setValue(element.Id_transformador_fk);// Seleccionar la opción recién agregada
+            
+                        id_estatus.addOption({value: element.Id_estatus_fk, text: element.Id_estatus_fk});
+                        id_estatus.setValue(element.Id_estatus_fk);// Seleccionar la opción recién agregada
+                                            
+                        id_lampara.addOption({value: element.Id_lampara_fk, text: element.Id_lampara_fk});
+                        id_lampara.setValue(element.Id_lampara_fk);// Seleccionar la opción recién agregada
+                        
+                        id_potencia.addOption({value: element.Id_potencia_fk, text: element.Id_potencia_fk});
+                        id_potencia.setValue(element.Id_potencia_fk);// Seleccionar la opción recién agregada
+                        
+                        id_poste.addOption({value: element.Id_poste_fk, text: element.Id_poste_fk});
+                        id_poste.setValue(element.Id_poste_fk);// Seleccionar la opción recién agregada
+
+                        id_dependencia.addOption({value: element.Id_dependencia_fk, text: element.Id_dependencia_fk});
+                        id_dependencia.setValue(element.Id_dependencia_fk);// Seleccionar la opción recién agregada
+                        
+                        id_altura.addOption({value: element.Id_altura_fk, text: element.Id_altura_fk});
+                        id_altura.setValue(element.Id_altura_fk);// Seleccionar la opción recién agregada
+
+                        id_luminaria.addOption({value: element.Id_tipoLuminaria_fk, text: element.Id_tipoLuminaria_fk});
+                        id_luminaria.setValue(element.Id_tipoLuminaria_fk); // Seleccionar la opción recién agregada                                       
+                    });                
+                    $("#load_spinner").removeClass('flex')
+                    $("#load_spinner").addClass('hidden')
+                } else {
+                    $("#load_spinner").removeClass('flex')
+                    $("#load_spinner").addClass('hidden')
+                }
             },
             error: function(xhr, status, error){        
                 console.error(error)                
             }
         });
     }
-
-    let  id_medida = document.getElementById("Id_medida_fk");
-    let  id_lampara = document.getElementById("Id_lampara_fk");
-    let Id_potencia_fk  = document.getElementById("Id_potencia_fk");
-    let  Id_poste_fk = document.getElementById("Id_poste_fk");
-    let Id_dependencia_fk  = document.getElementById("Id_dependencia_fk");
-    let  Id_altura_fk = document.getElementById("Id_altura_fk");
-    let  Id_transformador_fk = document.getElementById("Id_transformador_fk");
-    let  Id_estatus_fk = document.getElementById("Id_estatus_fk");
-    let  id_tipoLuminaria_fk = document.getElementById("id_tipoLuminaria_fk");
-
-
-    if (id_medida) {
-        new TomSelect("#Id_medida_fk", {            
-            create: true,        
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-
-    if (id_lampara) {
-        new TomSelect("#Id_lampara_fk", {
-            create: true,        
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-    
-    if (Id_potencia_fk) {
-        new TomSelect("#Id_potencia_fk", {
-            create: true,
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-
-    if (Id_poste_fk) {
-        new TomSelect("#Id_poste_fk", {
-            create: true,
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-
-    if (Id_dependencia_fk) {
-        new TomSelect("#Id_dependencia_fk", {
-            create: true,
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-
-    if (Id_altura_fk) {
-        new TomSelect("#Id_altura_fk", {
-            create: true,
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-
-    if (Id_transformador_fk) {
-        new TomSelect("#Id_transformador_fk", {
-            create: true,
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-
-    if (Id_estatus_fk) {
-        new TomSelect("#Id_estatus_fk", {
-            create: true,
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-
-    
-    if (id_tipoLuminaria_fk) {
-        new TomSelect("#id_tipoLuminaria_fk", {
-            create: true,
-            sortField: {
-                field: "text",
-                direction: "desc"
-            }
-        });    
-    }
-    
-    $("#form-data").on('submit',  Create);        
-    $("#form_update").on('submit', Update); 
-    // $("#btn_cerrar_censo").on('click', Close);
-    btn_navbar.addEventListener('click', DisplayMenu);
-
-    /* CREATE USER */
-    function CreateUser (e) {
-        $("#load_spinner").removeClass('hidden');
-        $("#load_spinner").addClass('flex');
-        e.preventDefault();
-        var formData = $(this).serialize();
-        $.ajax({
-            type: 'POST',
-            url: '/create_users', 
-            data: formData,                     
-            success: function(data){                       
-                var result = data.result
-                if (result == 1) {
-                    $("#load_spinner").removeClass('flex')
-                    $("#load_spinner").addClass('hidden')
-                    $(".hidden_msg").addClass('hidden');
-                    alert(data.msg)                    
-                } else {                    
-                    $("#load_spinner").removeClass('flex')
-                    $("#load_spinner").addClass('hidden') 
-                    alert(data.msg)
-                }
-            },
-            error: function(xhr, status, error){        
-                let errors  = xhr.responseJSON.errors;                                  
-                $("#load_spinner").addClass('hidden')                
-                if (errors.name) {                    
-                    $("#msg_error_name").removeClass('hidden')
-                    $("#msg_error_name").text(errors.name)            
-                } else {
-                    $("#msg_error_name").addClass('hidden')
-                    $("#msg_error_name").text('')  
-                }              
-
-                if (errors.email) {
-                    $("#msg_error_email").removeClass('hidden')
-                    $("#msg_error_email").text(errors.email)           
-                } else {
-                    $("#msg_error_email").addClass('hidden')
-                    $("#msg_error_email").text('')
-                }
-
-                if (errors.password) {                    
-                    $("#msg_error_pass").removeClass('hidden')
-                    $("#msg_error_pass").text(errors.password)            
-                } else {
-                    $("#msg_error_pass").addClass('hidden')
-                    $("#msg_error_pass").text('')  
-                }                  
-                    
-            }
-        });
-    }
-    
-    /* CREA UN NUEVO Censo */
+              
+    /* CREA UN NUEVO CENSO */
     function Create (e) {
         $("#load_spinner").removeClass('hidden');
         $("#load_spinner").addClass('flex');
@@ -418,16 +307,159 @@ $(document).ready(function () {
         });
     }
 
-    /* CIERRA EL CENSO */
-    function Close () {
-        if(!confirm('quieres cerrar el censo')) {
-            console.log('false')
-        } else {
-            console.log('true')
-        }            
+    /* FUNCIONES PARA OBTENER, ACTULIZAR Y CREAR USUARIOS */
+    let table_users = new DataTable('#table_users', {
+        reponsive: true,
+        processing: true,   
+        searching: true,     
+        // serverSide: true,
+        ajax: {
+            url: '/getusers',
+            dataSrc: 'data'
+        },
+        "columnDefs":[
+            {
+            "targets": [0], // Índice de la columna que deseas ocultar (comienza desde 0)
+            "visible": false, // Establece esta columna como no visible
+            "searchable": false
+           }           
+        ],
+        "columns":[ 
+            { data: 'id'},
+            { data: 'boton'},
+            { data: 'name'},            
+            { data: 'email'},                  
+        ]
+    });
+
+    /* OBTIENE EL ID DE LA TABLA USUSARIOS */
+    $('#table_users tbody').on('click', '#btn_show_user', function() {
+        var rowData = table_users.row($(this).closest('tr')).data(); // Obtener los datos de la fila
+        var id = rowData.id; // Obtener el valor de la columna 'id' de los datos de la fila        
+        $("#Modal_static_users").removeClass('hidden')
+        $("#Modal_static_users").addClass('flex')
+        $("#content-pass-confirm").addClass('hidden');
+        $("#id_user").val(id);
+        ShowUsers(id)    
+    });
+    $("#form_create_users").on('submit', CreateUser);
+
+    /* MUESTRA EL MODAL PARA AGREGAR UN NUEVO USUARIO */
+    $("#btn_show_modal_user").on('click', function () {
+        $("#Modal_static_users").removeClass('hidden')
+        $("#Modal_static_users").addClass('flex')
+        $("#content-pass-confirm").removeClass('hidden');
+        ClearFormUser();         
+    })
+    /* CIERRAN EL MODAL */
+    $("#btn_close_modal_users").on('click', function () {        
+        $("#Modal_static_users").addClass('hidden')
+        ClearFormUser()
+    })
+    /* CIERRA EL MODAL CON EL BOTON CANCELAR  */
+    $("#btn_cancelar_modal_users").on('click',  function () {
+        $("#Modal_static_users").addClass('hidden')
+        ClearFormUser()
+    })
+
+    function ClearFormUser() {
+        $("#id_user").val('');
+        $("#name").val('');
+        $("#email").val('');
+        $("#password").val('');
+        $("#password_confirmation").val('');
+        $("#EsAdmin").prop('checked', false);
+    }
+
+    function ShowUsers(id) {      
+        $("#load_spinner").removeClass('hidden');
+        $("#load_spinner").addClass('flex');          
+        $.ajax({
+            type: 'GET',
+            url: '/ShowUsers', 
+            data:{
+                id: id                        
+            },                    
+            success: function(data){                
+                if (data.name) {
+                    $("#load_spinner").removeClass('flex')
+                    $("#load_spinner").addClass('hidden')
+                    $("#name").val(data.name)
+                    $("#email").val(data.email)
+                    $("#password").val(data.password)
+                    if (data.EsAdmin) {
+                        $("#EsAdmin").prop('checked', true);
+                    } else {
+                        $("#EsAdmin").prop('checked', false);
+                    } 
+                } else {
+                    $("#load_spinner").removeClass('flex')
+                    $("#load_spinner").addClass('hidden')
+                }                                          
+            },
+            error: function(xhr, status, error){        
+                console.error(error)                
+            }
+        });
+    }
+
+    /* CREATE USER */
+    function CreateUser (e) {
+        $("#load_spinner").removeClass('hidden');
+        $("#load_spinner").addClass('flex');
+        e.preventDefault();
+        var formData = $(this).serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/create_users', 
+            data: formData,                     
+            success: function(data){                       
+                var result = data.result
+                if (result == 1) {
+                    $("#load_spinner").removeClass('flex')
+                    $("#load_spinner").addClass('hidden')
+                    $(".hidden_msg").addClass('hidden');
+                    table_users.ajax.reload()
+                    alert(data.msg)                    
+                } else {                    
+                    $("#load_spinner").removeClass('flex')
+                    $("#load_spinner").addClass('hidden') 
+                    alert(data.msg)
+                }
+            },
+            error: function(xhr, status, error){        
+                let errors  = xhr.responseJSON.errors;                                  
+                $("#load_spinner").addClass('hidden')                
+                if (errors.name) {                    
+                    $("#msg_error_name").removeClass('hidden')
+                    $("#msg_error_name").text(errors.name)            
+                } else {
+                    $("#msg_error_name").addClass('hidden')
+                    $("#msg_error_name").text('')  
+                }              
+
+                if (errors.email) {
+                    $("#msg_error_email").removeClass('hidden')
+                    $("#msg_error_email").text(errors.email)           
+                } else {
+                    $("#msg_error_email").addClass('hidden')
+                    $("#msg_error_email").text('')
+                }
+
+                if (errors.password) {                    
+                    $("#msg_error_pass").removeClass('hidden')
+                    $("#msg_error_pass").text(errors.password)            
+                } else {
+                    $("#msg_error_pass").addClass('hidden')
+                    $("#msg_error_pass").text('')  
+                }                  
+                    
+            }
+        });
     }
 
     /* MUESTRA EL MENU */
+    btn_navbar.addEventListener('click', DisplayMenu);      
     function DisplayMenu() {
         if (content_menu.classList.contains('hidden')) {
             content_menu.classList.remove('hidden')    
@@ -436,8 +468,8 @@ $(document).ready(function () {
         }
     }
 
-     /* obtiene la ubicacion actual del usuario */
-     const options = {
+    /* obtiene la ubicacion actual del usuario */
+    const options = {
         enableHighAccuracy: false,
         // timeout: 5000,
         maximumAge: 0,
@@ -445,9 +477,8 @@ $(document).ready(function () {
     
     function success(pos) {
         const crd = pos.coords;        
-        latitud =  crd.latitude
-        longitud =  crd.longitude
-
+        // latitud =  crd.latitude
+        // longitud =  crd.longitude
         $("#Latitud").val(crd.latitude)
         $("#Longitud").val(crd.longitude)            
     };
@@ -460,8 +491,6 @@ $(document).ready(function () {
     
 
     /* ejemplo por si el usuario no tiene internet */
-    
-
     if (!navigator.onLine) {                   
         /* obtiene la ubicacion actual del usuario */
         navigator.geolocation.getCurrentPosition(success, error, options);
@@ -528,8 +557,6 @@ $(document).ready(function () {
         if (a_data_add !== null) {                
             alert("Desea enviar los datos que esta guardados")            
             Create(a_data_add);
-        } else {
-            console.log("no tiene")
         }
 
         function Create (a_data_add) {

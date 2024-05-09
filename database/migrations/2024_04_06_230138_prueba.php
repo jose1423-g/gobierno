@@ -72,10 +72,10 @@ return new class extends Migration
             $table->string('descripcion');            
         });
 
-        Schema::create('tipoluminaria', function (Blueprint $table) {
-            $table->id('id_luminaria');
-            $table->string('descripcion');            
-        });
+        // Schema::create('tipoluminaria', function (Blueprint $table) {
+        //     $table->id('id_luminaria');
+        //     $table->string('descripcion');            
+        // });
 
         Schema::create('tipoposte', function (Blueprint $table) {
             $table->id('id_poste');
