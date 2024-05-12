@@ -111,9 +111,7 @@ $(document).ready(function () {
  
     let btn_navbar = document.getElementById('btn-navbar');
     let content_menu = document.getElementById('navbar-default');
-    let a_data = [];
-    // let latitud = '';
-    // let longitud = '';
+    let a_data = [];    
 
     let table = new DataTable('#table', {
         reponsive: true,
@@ -226,7 +224,9 @@ $(document).ready(function () {
                 }
             },
             error: function(xhr, status, error){        
-                console.error(error)                
+                console.error(error)  
+                $("#load_spinner").removeClass('flex')
+                $("#load_spinner").addClass('hidden')              
             }
         });
     }
@@ -476,9 +476,7 @@ $(document).ready(function () {
     };
     
     function success(pos) {
-        const crd = pos.coords;        
-        // latitud =  crd.latitude
-        // longitud =  crd.longitude
+        const crd = pos.coords;
         $("#Latitud").val(crd.latitude)
         $("#Longitud").val(crd.longitude)            
     };
@@ -495,8 +493,7 @@ $(document).ready(function () {
         /* obtiene la ubicacion actual del usuario */
         navigator.geolocation.getCurrentPosition(success, error, options);
 
-        $("#btn_save_data").on('click',  function () {                
-            // let csrf_token = $('#form-data input[name="_token"]').val();
+        $("#btn_save_data").on('click',  function () {
             let sm_av = $("#Sm_Av").val()
             let latitud = $("#Latitud").val()
             let longitud = $("#Longitud").val()
@@ -542,15 +539,18 @@ $(document).ready(function () {
             }
 
             a_data.push(datos);
-
-        });
-        
-        $("#btn_save_local").on('click', function () {                    
-            alert("Datos guardados localmete correctamente")
-            localStorage.setItem('a_data', JSON.stringify(a_data));        
-            
+            alert('Datos guardados')
+            AddLocal(a_data);
         });
 
+        function AddLocal(a_data) {
+            if (a_data.length > 0) {
+                localStorage.setItem('a_data', JSON.stringify(a_data));
+            } else {
+                console.log("El array está vacío");
+            }    
+        } 
+                   
     } else {
 
         let a_data_add = JSON.parse(localStorage.getItem('a_data'));        
@@ -578,9 +578,9 @@ $(document).ready(function () {
                         localStorage.clear();                            
                     } else {
                         $("#load_spinner").removeClass('flex')
-                        $("#load_spinner").addClass('hidden')
-                        alert(`error  ${data.msg}`)
-                        // localStorage.clear();
+                        $("#load_spinner").addClass('hidden')                    
+                        alert(`Error los datos se borraran de la cache  ${data.msg}`)
+                        localStorage.clear();
                     }
                 },
                 error: function(xhr, status, error){                            

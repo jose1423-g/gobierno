@@ -26,7 +26,7 @@ Route::get('/users', function () {
     return view('auth.register');
 })->name('users')->middleware('auth');
 
-Route::get('/GetExcel', function () {
+Route::get('/Excel', function () {
     return view('getexcel');
 })->name('excel')->middleware('auth');
 
@@ -61,13 +61,3 @@ Route::get('/ShowUsers', [UsersController::class, 'getUsers'])->middleware('auth
 Route::post('/create_users', [UsersController::class, 'CreateOrUpdate'])->name('create_users')->middleware('auth');
 
 // Route::post('/delete_users', [PostController::class, 'delete'])->name('delete_users')->middleware('auth');
-
-
-
-
-// Route::get('/lista_censos', function () {
-//     return view('read');
-// })->name('read');
-
-
-

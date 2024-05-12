@@ -1,9 +1,9 @@
 var staticCacheName = "pwa-v" + new Date().getTime();
 var filesToCache = [
     './offline',
-    './build/assets/app-rPtHpWRC.css',
+    './build/assets/app-CTZo2EkU.css',
     './build/assets/app-uzqnvh6b.css',
-    './build/assets/app-1T_NgkgW.js',
+    './build/assets/app-DeCunNIO.js',
     './images/icons/logo_gobierno.png',
 ];
 

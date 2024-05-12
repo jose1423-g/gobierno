@@ -21,7 +21,7 @@
             <a href="{{ route('users') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('users') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Users</a>
           </li>
           <li>
-            <a href="{{ route('excel') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('excel') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Getexcel</a>
+            <a href="{{ route('excel') }}" class="block px-3 py-2 rounded hover:bg-gray-100 hover:text-gray-900 md:border-0 {{ request()->routeIs('excel') ? 'bg-blue-700 text-white hover:bg-blue-400' : 'text-gray-900' }}">Excel</a>
           </li>
           @if (Auth::check())
             <li>

@@ -1,14 +1,14 @@
-@csrf
-<div class="justify-around block md:flex">
+<div class="justify-around block md:flex">    
     <div class="mb-3 md:w-2/4 md:mr-4">
-        <label for="Latitud" class="block mb-2 text-sm font-medium text-gray-900">Latitud</label>
-        <input type="text" id="Latitud" name="Latitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500" required readonly>
-    </div>
+        <label for="fecha_desde" class="block mb-2 text-sm font-medium text-gray-900">Fecha desde</label>
+        <input type="date" id="fecha_desde" name="fecha_desde" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
+    </div> 
     <div class="mb-3 md:w-2/4">
-        <label for="longitud" class="block mb-2 text-sm font-medium text-gray-900">Longitud</label>
-        <input type="text" id="Longitud" name="Longitud" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500" required readonly>
+        <label for="fecha_hasta" class="block mb-2 text-sm font-medium text-gray-900">Fecha hasta</label>
+        <input type="date" id="fecha_hasta" name="fecha_hasta" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
     </div>
-</div> 
+</div>
+
 <div class="justify-around block md:flex">    
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="Sm_Av" class="block mb-2 text-sm font-medium text-gray-900">Sm/Av.</label>
@@ -29,43 +29,43 @@
 </div>
 
 <div class="justify-around block md:flex">
+            
     <div class="mb-3 md:w-2/4 md:mr-4">
-        <label for="Id_transformador_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Capacidad de transformador</label>
-        <select id="Id_transformador_fk" name="Id_transformador_fk">    
+        <label for="id_tipoLuminaria_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de Luminaria</label>
+        <select id="id_tipoLuminaria_fk" name="id_tipoLuminaria_fk">
             <option value="">Selecciona un valor</option>
-            @if (isset($transformador))
-                @foreach ($transformador as $row)
-                    <option value="{{$row->id_transformador}}">{{$row->tipo}} {{$row->Voltaje}}</option>                                                    
-                @endforeach
-            @endif
-        </select>                    
+            @if (isset($tipo_luminaria))
+                @foreach ($tipo_luminaria as $row)
+                    <option value="{{$row->id_lampara}}">{{$row->descripcion}}</option>                                                    
+                @endforeach        
+            @endif            
+        </select>
     </div>
+        
     {{--  --}}
     <div class="mb-3 md:w-2/4">
         <label for="Circuito" class="block mb-2 text-sm font-medium text-gray-900">No Circuito</label>
-        <input type="text" id="Circuito" name="Circuito" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
-        {{-- ERROR --}}
-        <span class="hidden text-red-700 hidden_msg" id="msg_error_circuito"></span>
+        <input type="text" id="Circuito" name="Circuito" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">        
     </div>                                  
 </div>
 
-<div class="justify-around block md:flex">
+{{-- <div class="justify-around block md:flex">
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="NumMedidor" class="block mb-2 text-sm font-medium text-gray-900">No. Medidor</label>
         <input type="text" id="NumMedidor" name="NumMedidor" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
     </div>    
-    {{--  --}}                                 
+
     <div class="mb-3 md:w-2/4">
         <label for="Luminarias" class="block mb-2 text-sm font-medium text-gray-900">Luminarias instaladas</label>
         <input type="number" id="Luminarias" name="Luminarias" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500" min="0" value="1">
     </div> 
-</div>  
-          
+</div>   --}}
+
 <div class="justify-around block md:flex">
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="Id_estatus_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estatus del poste</label>
         <select id="Id_estatus_fk" name="Id_estatus_fk">
-            <option value="">Selecciona un valor</option> 
+            <option value="">Selecciona un valor</option>
             @if (isset($estatus))
                 @foreach ($estatus as $row)
                     <option value="{{$row->id_estatus}}">{{$row->tipo}} {{$row->descripcion}}</option>                                                    
@@ -87,7 +87,7 @@
     </div>                                              
 </div> 
 
-<div class="justify-around block md:flex">
+{{-- <div class="justify-around block md:flex">
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="id_tipoLuminaria_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de Luminaria</label>
         <select id="id_tipoLuminaria_fk" name="id_tipoLuminaria_fk">
@@ -99,7 +99,7 @@
             @endif            
         </select>
     </div>
-    {{--  --}}
+    
     <div class="mb-3 md:w-2/4">
         <label for="Id_potencia_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Potencia (Watts)</label>
         <select id="Id_potencia_fk" name="Id_potencia_fk">
@@ -111,28 +111,28 @@
             @endif            
         </select>
     </div>
-</div>  
+</div>  --}}
   
-<div class="justify-around block md:flex">      
+{{-- <div class="justify-around block md:flex">      
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="Etiqueta" class="block mb-2 text-sm font-medium text-gray-900">No. de Etiqueta</label>
         <input type="text" id="Etiqueta" name="Etiqueta" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500">
-    </div>     
-    {{--  --}}   
+    </div>
+    
     <div class="mb-3 md:w-2/4">
         <label for="Id_poste_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de poste</label>
         <select id="Id_poste_fk" name="Id_poste_fk">
             <option value="">Selecciona un valor</option>                        
             @if (isset($tipoposte))
                 @foreach ($tipoposte as $row)
-                    <option value="{{$row->id_poste}}">{{$row->descripcion}}</option>                                                    
+                    <option value="{{$row->id_poste}}">{{$row->descripcion}}</option>
                 @endforeach        
             @endif            
         </select>
     </div>                 
-</div>   
+</div>    --}}
 
-<div class="justify-around block md:flex">
+{{-- <div class="justify-around block md:flex">
     <div class="mb-3 md:w-2/4 md:mr-4">
         <label for="Id_dependencia_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dependencia</label>
         <select id="Id_dependencia_fk" name="Id_dependencia_fk">
@@ -144,7 +144,7 @@
             @endif            
         </select>
     </div>
-    {{--  --}}
+    
     <div class="mb-3 md:w-2/4">
         <label for="Id_altura_fk" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Altura</label>
         <select id="Id_altura_fk" name="Id_altura_fk">
@@ -161,4 +161,4 @@
 <div class="mb-3">
     <label for="Observaciones" class="block mb-2 text-sm font-medium text-gray-900">Observaciones</label>
     <textarea name="Observaciones" id="Observaciones" class="block w-full p-1.5 text-sm text-gray-900 border border-gray-300 rounded-sm bg-gray-50 focus:outline-none focus:border-blue-500" rows="3"></textarea>
-</div>
+</div> --}}
