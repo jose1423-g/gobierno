@@ -248,7 +248,8 @@ $(document).ready(function () {
                     $("#load_spinner").removeClass('flex')
                     $("#load_spinner").addClass('hidden')
                     // $(".hidden_msg").addClass('hidden');  
-                    alert(data.msg)                  
+                    audio();
+                    alert(data.msg)
                 } else {
                     $("#load_spinner").removeClass('flex')
                     $("#load_spinner").addClass('hidden') 
@@ -256,24 +257,7 @@ $(document).ready(function () {
                 }
             },
             error: function(xhr, status, error){        
-                alert(`Ups hemos tenido un error por favor comunicarse con el desarrollador ${error}`)
-                // let errors  = xhr.responseJSON.errors;  
-                // $("#load_spinner").addClass('hidden')                
-                // if (errors.Circuito) {
-                //     $("#msg_error_circuito").removeClass('hidden')
-                //     $("#msg_error_circuito").text(errors.Circuito)           
-                // } else {
-                //     $("#msg_error_circuito").addClass('hidden')
-                //     $("#msg_error_circuito").text('')
-                // }
-
-                // if (errors.Sm_Av) {                    
-                //     $("#msg_error_sm_av").removeClass('hidden')
-                //     $("#msg_error_sm_av").text(errors.Sm_Av)            
-                // } else {
-                //     $("#msg_error_sm_av").addClass('hidden')
-                //     $("#msg_error_sm_av").text('')  
-                // }      
+                alert(`Ups hemos tenido un error por favor comunicarse con el desarrollador ${error}`)                
             }
         });
     }
@@ -468,6 +452,19 @@ $(document).ready(function () {
         }
     }
 
+    //REPRUDICE UN AUDIO
+    function audio() {
+        let audio = new Audio('audio/notificacion.mp3');
+        audio.currentTime = 0;
+        audio.play()
+    }
+
+    $("#btn_reload").on('click', ReloadPosition) 
+    
+    function ReloadPosition() {
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    }
+
     /* obtiene la ubicacion actual del usuario */
     const options = {
         enableHighAccuracy: false,
@@ -541,6 +538,7 @@ $(document).ready(function () {
             a_data.push(datos);
             alert('Datos guardados')
             AddLocal(a_data);
+            audio();
         });
 
         function AddLocal(a_data) {
