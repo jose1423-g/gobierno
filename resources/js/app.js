@@ -246,8 +246,7 @@ $(document).ready(function () {
                 if (result == 1) {
                     table.ajax.reload()
                     $("#load_spinner").removeClass('flex')
-                    $("#load_spinner").addClass('hidden')
-                    // $(".hidden_msg").addClass('hidden');  
+                    $("#load_spinner").addClass('hidden')                    
                     audio();
                     alert(data.msg)
                 } else {
@@ -536,9 +535,10 @@ $(document).ready(function () {
             }
 
             a_data.push(datos);
-            alert('Datos guardados')
-            AddLocal(a_data);
             audio();
+            alert('Datos guardados')            
+            AddLocal(a_data);
+            
         });
 
         function AddLocal(a_data) {
