@@ -460,7 +460,9 @@ $(document).ready(function () {
 
     $("#btn_reload").on('click', ReloadPosition) 
     
-    function ReloadPosition() {
+    function ReloadPosition () {
+        $("#Latitud").val('cargando....');
+        $("#Longitud").val('cargando....');
         navigator.geolocation.getCurrentPosition(success, error, options);
     }
 
